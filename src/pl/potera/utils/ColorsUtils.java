@@ -1,6 +1,11 @@
 package pl.potera.utils;
 
 public class ColorsUtils {
+    public static final int BLACK = 0;
+    public static final int WHITE = 255;
+    public static final int BLACK_RGB = int2RGB(0);
+    public static final int WHITE_RGB = int2RGB(255);
+
     // This method assembles RGB color intensities into single
     // packed integer. Arguments must be in <0..255> range
     public static int int2RGB(int color) {
@@ -15,5 +20,9 @@ public class ColorsUtils {
 
         // Assemble packed RGB using bit shift operations
         return (red << 16) + (green << 8) + blue;
+    }
+
+    public static int inverseColor(int color) {
+        return WHITE - color;
     }
 }
