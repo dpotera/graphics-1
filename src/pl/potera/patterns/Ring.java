@@ -40,6 +40,6 @@ public class Ring {
     }
 
     private int calculateShadowColor(double distance, int ringIndex, int width, int shadow) {
-        return (int) ((distance - ringIndex * width - (width - shadow)) / shadow) * ColorsUtils.WHITE;
+        return (int) ((distance - ringIndex * width - (width - shadow)) / shadow * 100) * ColorsUtils.WHITE / 100;
     }
 }
