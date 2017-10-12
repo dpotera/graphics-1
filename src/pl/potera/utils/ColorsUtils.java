@@ -5,6 +5,9 @@ public class ColorsUtils {
     public static final int WHITE = 255;
     public static final int BLACK_RGB = int2RGB(0);
     public static final int WHITE_RGB = int2RGB(255);
+    public static final int RED_RGB = int2RGB(255, 0, 0);
+    public static final int GREEN_RGB = int2RGB(0, 255, 0);
+    public static final int BLUE_RGB = int2RGB(0, 0, 255);
 
     // This method assembles RGB color intensities into single
     // packed integer. Arguments must be in <0..255> range

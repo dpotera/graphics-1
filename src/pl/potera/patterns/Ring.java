@@ -20,7 +20,7 @@ public class Ring {
         BufferedImage image = new BufferedImage(x_res, y_res, BufferedImage.TYPE_INT_RGB);
         for (int i = 0; i < y_res; i++)
             for (int j = 0; j < x_res; j++)
-                image.setRGB(j, i, getPixelColor(width, shadow, MathUtils.calculateDistance(i, j, x_res, y_res)));
+                image.setRGB(j, i, getPixelColor(width, shadow, MathUtils.distanceToCenter(i, j, x_res, y_res)));
         return image;
     }
 
