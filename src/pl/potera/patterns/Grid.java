@@ -1,29 +1,27 @@
 package pl.potera.patterns;
 
 import pl.potera.utils.FileUtils;
-import pl.potera.utils.MathUtils;
+import pl.potera.utils.ImagesUtils;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 
 public class Grid {
-    private static final String FILE_NAME = "patterns/grid.jpg";
+    String FILE_NAME = "patterns/grid.jpg";
 
-    private int backgroundColor;
-    private int lineColor;
-    private int spaceWidth;
-    private int spaceHeight;
-    private int columnsWidth;
-    private int rowsWidth;
+    int lineColor;
+    int spaceWidth;
+    int spaceHeight;
+    int columnsWidth;
+    int rowsWidth;
 
-    public Grid(int width, int x_space, int y_space, int background, int color) {
-        this(width, width, x_space, y_space, background, color);
+    public Grid(int width, int x_space, int y_space, int color) {
+        this(width, width, x_space, y_space, color);
     }
 
-    public Grid(int x_width, int y_width, int x_space, int y_space, int background, int color) {
+    public Grid(int x_width, int y_width, int x_space, int y_space, int color) {
         spaceWidth = x_space;
         spaceHeight = y_space;
-        backgroundColor = background;
         lineColor = color;
         columnsWidth = x_width;
         rowsWidth = y_width;
@@ -35,21 +33,24 @@ public class Grid {
     }
 
     private RenderedImage generateImage(int x_res, int y_res) {
-        BufferedImage image = new BufferedImage(x_res, y_res, BufferedImage.TYPE_INT_RGB);
-        return renderedOnImage(image);
+        return renderOnImage(ImagesUtils.whiteImage(x_res, y_res));
     }
 
-    private RenderedImage renderedOnImage(BufferedImage image) {
+    private RenderedImage renderOnImage(BufferedImage image) {
         for (int i = 0; i < image.getHeight(); i++)
-            for (int j = 0; j < image.getWidth(); j++)
-                image.setRGB(j, i, getPixelColor(distance(j, image.getWidth()), distance(i, image.getHeight())));
+            for (int j = 0; j < image.getWidth(); j++){
+                int pixelColor = getPixelColor(distance(j, image.getWidth()), distance(i, image.getHeight()));
+                if(pixelColor >= 0) {
+                    image.setRGB(j, i, pixelColor);
+                }
+            }
         return image;
     }
 
-    private int getPixelColor(int x, int y) {
+    int getPixelColor(int x, int y) {
         boolean column = (x + spaceWidth / 4) % (spaceWidth / 2 + columnsWidth) > spaceWidth / 2;
         boolean row = (y + spaceHeight / 4) % (spaceHeight / 2 + rowsWidth) > spaceHeight / 2;
-        return column || row ? lineColor : backgroundColor;
+        return column || row ? lineColor : -1;
     }
 
     private static int distance(int x, int resolution){
