@@ -36,7 +36,7 @@ public class Grid {
         return renderOnImage(ImagesUtils.whiteImage(x_res, y_res));
     }
 
-    private RenderedImage renderOnImage(BufferedImage image) {
+    public BufferedImage renderOnImage(BufferedImage image) {
         for (int i = 0; i < image.getHeight(); i++)
             for (int j = 0; j < image.getWidth(); j++){
                 int pixelColor = getPixelColor(distance(j, image.getWidth()), distance(i, image.getHeight()));
