@@ -63,11 +63,11 @@ public class Circle {
         }
     }
 
-    private boolean isShadow(int width, int shadow, double distance, int ringIndex) {
+    boolean isShadow(int width, int shadow, double distance, int ringIndex) {
         return distance - ringIndex * width > width - shadow;
     }
 
-    private int calculateShadowColor(double distance, int ringIndex, int width, int shadow) {
+    int calculateShadowColor(double distance, int ringIndex, int width, int shadow) {
         return (int) ((distance - ringIndex * width - (width - shadow)) / shadow * 100) * ColorsUtils.WHITE / 100;
     }
 }

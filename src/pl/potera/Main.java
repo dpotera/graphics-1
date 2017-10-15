@@ -19,10 +19,16 @@ public class Main {
         int imagesX = 1281, imagesY = 961;
 
 
-        Circle circle = new Circle(30, 2);
+        Circle circle = new Circle(30, 10);
         circle.renderImage(x_res, y_res);
         BufferedImage wroclaw_circle = circle.renderOnImage(readWroclawImage());
         FileUtils.saveImage(wroclaw_circle, "patterns/wroclaw_circle.jpg");
+
+        CircleColor circleColor = new CircleColor(30, 10);
+        circleColor.renderImage(x_res, y_res);
+        circleColor.renderOnImage(readWroclawImage());
+//        BufferedImage wroclaw_circle_color = circle.renderOnImage(readWroclawImage());
+//        FileUtils.saveImage(wroclaw_circle, "patterns/wroclaw_circle.jpg");
 
         CirclesGrid circlesGrid = new CirclesGrid(x_res, y_res, 40, 0, 100, 100);
         circlesGrid.renderImage(x_res, y_res);
@@ -31,7 +37,7 @@ public class Main {
 
         circlesGrid = new CirclesGrid(x_res, y_res, 40, 0, 100, 100);
         circlesGrid.renderImage(x_res, y_res);
-        BufferedImage bigCircles = circlesGrid.renderOnImage(ImagesUtils.renderImage(imagesX, imagesY, ColorsUtils.int2RGB(100)));
+        BufferedImage bigCircles = circlesGrid.renderOnImage(ImagesUtils.renderImage(imagesX, imagesY, ColorsUtils.int2RGB(50)));
         FileUtils.saveImage(bigCircles, "patterns/big_circles.jpg");
 
         Grid grid = new Grid(20, 200, 200, ColorsUtils.BLACK_RGB);
@@ -57,8 +63,10 @@ public class Main {
         BufferedImage wroclaw = readWroclawImage();
         BufferedImage sleza = readImage("images/sleza.jpg");
         BufferedImage pattern = radius.renderOnImage(ImagesUtils.whiteImage(imagesX, imagesY));
+        BufferedImage colorCircles = circleColor.renderOnImage(ImagesUtils.whiteImage(imagesX, imagesY));
         FileUtils.saveImage(Mixer.mixImages(wroclaw, sleza, pattern), "patterns/mixed_radius.jpg");
-        FileUtils.saveImage(Mixer.mixImages(wroclaw, sleza, bigCircles), "patterns/mixed_circles.jpg");
+        FileUtils.saveImage(Mixer.mixImages(wroclaw, sleza, colorCircles), "patterns/wroclaw_mixed_circles_color.jpg");
+        FileUtils.saveImage(Mixer.mixImages(wroclaw, colorCircles, ImagesUtils.renderImage(imagesX, imagesY, ColorsUtils.int2RGB(200))), "patterns/mixed_circles_color.jpg");
 
     }
 
