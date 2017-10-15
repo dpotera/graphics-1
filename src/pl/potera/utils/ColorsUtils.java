@@ -28,4 +28,23 @@ public class ColorsUtils {
     public static int inverseColor(int color) {
         return WHITE - color;
     }
+
+    public static int[] RGB2int(int rgb) {
+        int r = (rgb >> 16) & 0xFF;
+        int g = (rgb >> 8) & 0xFF;
+        int b = (rgb) & 0xFF;
+        return new int[]{r, g, b};
+    }
+
+    public static int mixColors(int color1, int color2, int key) {
+        double factor = key / 255.0;
+        int[] rgb1 = RGB2int(color1), rgb2 = RGB2int(color2);
+
+        for(int i=0; i<3; i++) {
+            rgb1[i] *= factor;
+            rgb2[i] *= 1 - factor;
+        }
+
+        return int2RGB(rgb1[0],rgb1[1],rgb1[2]) + int2RGB(rgb2[0],rgb2[1],rgb2[2]);
+    }
 }

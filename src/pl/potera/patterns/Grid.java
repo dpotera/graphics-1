@@ -2,6 +2,7 @@ package pl.potera.patterns;
 
 import pl.potera.utils.FileUtils;
 import pl.potera.utils.ImagesUtils;
+import pl.potera.utils.MathUtils;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
@@ -9,6 +10,8 @@ import java.awt.image.RenderedImage;
 public class Grid {
     String FILE_NAME = "patterns/grid.jpg";
 
+    int width;
+    int height;
     int lineColor;
     int spaceWidth;
     int spaceHeight;
@@ -33,18 +36,26 @@ public class Grid {
     }
 
     private RenderedImage generateImage(int x_res, int y_res) {
+        width = x_res;
+        height = y_res;
         return renderOnImage(ImagesUtils.whiteImage(x_res, y_res));
     }
 
     public BufferedImage renderOnImage(BufferedImage image) {
-        for (int i = 0; i < image.getHeight(); i++)
-            for (int j = 0; j < image.getWidth(); j++){
-                int pixelColor = getPixelColor(distance(j, image.getWidth()), distance(i, image.getHeight()));
-                if(pixelColor >= 0) {
-                    image.setRGB(j, i, pixelColor);
-                }
+        width = image.getWidth();
+        height = image.getHeight();
+        for (int i = 0; i < height; i++)
+            for (int j = 0; j < width; j++){
+                renderPixel(image, i, j);
             }
         return image;
+    }
+
+    void renderPixel(BufferedImage image, int i, int j) {
+        int pixelColor = getPixelColor(MathUtils.distance(j, image.getWidth()), MathUtils.distance(i, image.getHeight()));
+        if(pixelColor >= 0) {
+            image.setRGB(j, i, pixelColor);
+        }
     }
 
     int getPixelColor(int x, int y) {
@@ -53,7 +64,4 @@ public class Grid {
         return column || row ? lineColor : -1;
     }
 
-    private static int distance(int x, int resolution){
-        return Math.abs(resolution / 2 - x);
-    }
 }
