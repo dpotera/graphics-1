@@ -16,6 +16,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         int x_res = 800, y_res = 800;
+        int imagesX = 1281, imagesY = 961;
+
 
         Circle circle = new Circle(30, 2);
         circle.renderImage(x_res, y_res);
@@ -29,7 +31,7 @@ public class Main {
 
         circlesGrid = new CirclesGrid(x_res, y_res, 40, 0, 100, 100);
         circlesGrid.renderImage(x_res, y_res);
-        BufferedImage bigCircles = circlesGrid.renderOnImage(ImagesUtils.whiteImage(x_res, y_res));
+        BufferedImage bigCircles = circlesGrid.renderOnImage(ImagesUtils.renderImage(imagesX, imagesY, ColorsUtils.int2RGB(100)));
         FileUtils.saveImage(bigCircles, "patterns/big_circles.jpg");
 
         Grid grid = new Grid(20, 200, 200, ColorsUtils.BLACK_RGB);
@@ -54,8 +56,9 @@ public class Main {
 
         BufferedImage wroclaw = readWroclawImage();
         BufferedImage sleza = readImage("images/sleza.jpg");
-        BufferedImage pattern = radius.renderOnImage(ImagesUtils.whiteImage(1281, 961));
-        FileUtils.saveImage(Mixer.mixImages(wroclaw, sleza, pattern), "patterns/mixed.jpg");
+        BufferedImage pattern = radius.renderOnImage(ImagesUtils.whiteImage(imagesX, imagesY));
+        FileUtils.saveImage(Mixer.mixImages(wroclaw, sleza, pattern), "patterns/mixed_radius.jpg");
+        FileUtils.saveImage(Mixer.mixImages(wroclaw, sleza, bigCircles), "patterns/mixed_circles.jpg");
 
     }
 

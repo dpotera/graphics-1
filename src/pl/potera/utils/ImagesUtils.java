@@ -4,9 +4,13 @@ import java.awt.image.BufferedImage;
 
 public class ImagesUtils {
 
-    public static BufferedImage whiteImage(int width, int height) {
+    public static BufferedImage renderImage(int width, int height, int colorRGB) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        return fillImage(image, ColorsUtils.WHITE_RGB);
+        return fillImage(image, colorRGB);
+    }
+
+    public static BufferedImage whiteImage(int width, int height) {
+        return renderImage(width, height, ColorsUtils.WHITE_RGB);
     }
 
     private static BufferedImage fillImage(BufferedImage image, int color){
