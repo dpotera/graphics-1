@@ -4,6 +4,7 @@ import pl.potera.patterns.*;
 import pl.potera.utils.ColorsUtils;
 import pl.potera.utils.FileUtils;
 import pl.potera.utils.ImagesUtils;
+import pl.potera.utils.Mixer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -46,13 +47,25 @@ public class Main {
         BufferedImage wroclaw_chessboard45 = chessboard45.renderOnImage(readWroclawImage());
         FileUtils.saveImage(wroclaw_chessboard45, "patterns/wroclaw_chessboard45.jpg");
 
+        Radius radius = new Radius(15, ColorsUtils.BLACK_RGB);
+        radius.renderImage(x_res, y_res);
+        BufferedImage wroclaw_radius = radius.renderOnImage(readWroclawImage());
+        FileUtils.saveImage(wroclaw_radius, "patterns/wroclaw_radius.jpg");
 
+        BufferedImage wroclaw = readWroclawImage();
+        BufferedImage sleza = readImage("images/sleza.jpg");
+        BufferedImage pattern = radius.renderOnImage(ImagesUtils.whiteImage(1281, 961));
+        FileUtils.saveImage(Mixer.mixImages(wroclaw, sleza, pattern), "patterns/mixed.jpg");
 
     }
 
     private static BufferedImage readWroclawImage() throws IOException {
+        return readImage("images/wroclaw.jpg");
+    }
+
+    private static BufferedImage readImage(String imagePath) throws IOException {
         try {
-            return ImageIO.read(new File("images/wroclaw.jpg"));
+            return ImageIO.read(new File(imagePath));
         } catch (IOException e) {
             throw new IOException("failed to open file");
         }
